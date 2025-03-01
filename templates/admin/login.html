@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-login">
+    <div class="container">
+        <div class="login-container">
+            <div class="login-card">
+                <h2>Admin Login</h2>
+                <form method="POST" action="{{ url_for('admin_login') }}" class="login-form">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        {{ form.username.label(class="form-label") }}
+                        {{ form.username(class="form-control", placeholder="Enter username") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.password.label(class="form-label") }}
+                        {{ form.password(class="form-control", placeholder="Enter password") }}
+                    </div>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-danger">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-lock"></i> Login
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
