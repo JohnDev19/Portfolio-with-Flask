@@ -48,6 +48,21 @@ Flask-Mail with Gmail SMTP for sending emails. The following variables are neede
 | `MAIL_PASSWORD` | Gmail account password or app password | None | Yes (for email functionality) |
 | `ADMIN_EMAIL` | Email address to receive contact form submissions | None | Yes (for email functionality) |
 
+## To enable the contact form to send emails, we need your email credentials:
+
+- MAIL_USERNAME: Your Gmail address
+- MAIL_PASSWORD: Your Gmail App Password (not your regular password)
+
+## To get an App Password:
+
+- a. Go to your Google Account settings
+- b. Select Security
+- c. Enable 2-Step Verification if not already done
+- d. Under "App passwords", generate a new app password
+- ADMIN_EMAIL: The email address where you want to receive contact form messages
+
+See [Example](example.env)
+
 ## Database Configuration
 
 The application automatically uses SQLite by default but can be configured to use other databases:
@@ -72,4 +87,4 @@ msg = Message('New Contact Form Submission',
 - In production, use a strong, random `SESSION_SECRET`
 
 ## License
-This project is licensed under the MIT [LICENSE](LICENSE).
+This project is licensed under the MIT [LICENCE](LICENCE).
