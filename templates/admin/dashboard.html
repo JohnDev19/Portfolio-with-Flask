@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-dashboard">
+    <div class="container">
+        <header class="dashboard-header">
+            <h1>Admin Dashboard</h1>
+            <div class="dashboard-actions">
+                <button class="btn btn-primary" id="addProjectBtn">
+                    <i class="bi bi-plus-lg"></i> New Project
+                </button>
+            </div>
+        </header>
+
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2>Add New Project</h2>
+                </div>
+                <div class="card-body">
+                    <form id="projectForm" class="admin-form">
+                        <div class="form-group">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="title" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="image_url" class="form-label">Image URL</label>
+                            <input type="url" class="form-control" id="image_url" name="image_url" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="project_url" class="form-label">Project URL</label>
+                            <input type="url" class="form-control" id="project_url" name="project_url">
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-plus-circle"></i> Add Project
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2>Manage Projects</h2>
+                </div>
+                <div class="card-body">
+                    <div class="projects-table">
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="projectsList">
+                                    {% for project in projects %}
+                                    <tr id="project-{{ project.id }}" 
+                                        data-title="{{ project.title }}"
+                                        data-description="{{ project.description }}"
+                                        data-image-url="{{ project.image_url }}"
+                                        data-project-url="{{ project.project_url or '' }}">
+                                        <td>{{ project.title }}</td>
+                                        <td>{{ project.description[:50] }}...</td>
+                                        <td class="action-buttons">
+                                            <button class="btn-icon edit-project" data-id="{{ project.id }}">
+                                                <i class="bi bi-pencil"></i>
+                                            </button>
+                                            <button class="btn-icon delete-project" data-id="{{ project.id }}">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="editProjectModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Edit Project</h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="editProjectForm" class="admin-form">
+                <input type="hidden" id="edit-project-id">
+                <div class="form-group">
+                    <label for="edit-title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="edit-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-description" class="form-label">Description</label>
+                    <textarea class="form-control" id="edit-description" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="edit-image-url" class="form-label">Image URL</label>
+                    <input type="url" class="form-control" id="edit-image-url" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-project-url" class="form-label">Project URL</label>
+                    <input type="url" class="form-control" id="edit-project-url">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+{% endblock %}
+{% endblock %}
