@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section id="home" class="hero" data-aos="fade-up">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">Welcome to My Portfolio</h1>
+            <p class="lead mb-5">Full Stack Developer & UI/UX Designer</p>
+            <a href="#contact" class="btn btn-primary btn-lg">Get in Touch</a>
+        </div>
+    </div>
+</section>
+
+<section id="about" class="section" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title text-start">About <span class="gradient-text">Me</span></h2>
+        <div class="row align-items-center">
+            <div class="col-md-5">
+                <div class="about-image-container">
+                    <img src="https://images.unsplash.com/photo-1629904853716-f0bc54eea481" 
+                         alt="Profile" 
+                         class="about-image">
+                </div>
+            </div><br>
+            <div class="col-md-7">
+                <h3>Full Stack Developer</h3><br>
+                <p class="lead">Crafting Digital Experiences Through Code</p>
+                <p>With expertise in both frontend and backend development, I create seamless, user-centric applications that solve real-world challenges. My approach combines technical excellence with creative problem-solving.</p><br>
+                <div class="mt-4">
+                    <a href="#" class="btn btn-outline-gradient me-3">
+                        <i class="bi bi-download"></i> CV
+                    </a>
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="skills" class="section bg-dark" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title text-start">Technical <span class="gradient-text">Skills</span></h2>
+        <div class="skills-grid">
+            <div class="skill-item" data-aos="fade-up" data-aos-delay="100">
+                <i class="bi bi-code-square"></i>
+                <h4>Frontend Development</h4>
+                <p>HTML5, CSS3, JavaScript</p>
+            </div>
+            <div class="skill-item" data-aos="fade-up" data-aos-delay="200">
+                <i class="bi bi-server"></i>
+                <h4>Backend Development</h4>
+                <p>Python, Node.js, SQL</p>
+            </div>
+            <div class="skill-item" data-aos="fade-up" data-aos-delay="300">
+                <i class="bi bi-phone"></i>
+                <h4>Responsive Design</h4>
+                <p>Mobile-First Approach</p>
+            </div>
+            <div class="skill-item" data-aos="fade-up" data-aos-delay="400">
+                <i class="bi bi-gear"></i>
+                <h4>DevOps</h4>
+                <p>CI/CD, Cloud Services</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="projects" class="section" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title text-start">My <span class="gradient-text">Projects</span></h2>
+        <div class="row">
+            {% for project in projects %}
+            <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                <div class="card project-card">
+                    <img src="{{ project.image_url }}" class="card-img-top project-image" alt="{{ project.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ project.title }}</h5>
+                        <p class="card-text">{{ project.description }}</p>
+                        <a href="{{ project.project_url or '#' }}" class="btn btn-primary" {% if project.project_url %}target="_blank"{% endif %}>
+                            View Project
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="services" class="section bg-dark" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title text-start">My <span class="gradient-text">Services</span></h2>
+        <div class="row">
+            <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card h-100 service-card">
+                    <div class="card-body text-center">
+                        <i class="bi bi-code-square service-icon"></i>
+                        <h4 class="card-title">Web Development</h4>
+                        <p class="card-text">Building responsive and dynamic websites using the latest technologies.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card h-100 service-card">
+                    <div class="card-body text-center">
+                        <i class="bi bi-paint-bucket service-icon"></i>
+                        <h4 class="card-title">UI/UX Design</h4>
+                        <p class="card-text">Creating user-friendly interfaces and experiences that engage users.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="card h-100 service-card">
+                    <div class="card-body text-center">
+                        <i class="bi bi-gear service-icon"></i>
+                        <h4 class="card-title">DevOps Services</h4>
+                        <p class="card-text">Implementing CI/CD pipelines and cloud solutions for efficient development.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="section" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title text-start">Contact <span class="gradient-text">Me</span></h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form method="POST" action="{{ url_for('contact') }}" class="contact-form">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-4">
+                        {{ form.name.label(class="form-label") }}
+                        {{ form.name(class="form-control", placeholder="Your Name") }}
+                    </div>
+                    <div class="mb-4">
+                        {{ form.email.label(class="form-label") }}
+                        {{ form.email(class="form-control", placeholder="Your Email") }}
+                    </div>
+                    <div class="mb-4">
+                        {{ form.message.label(class="form-label") }}
+                        {{ form.message(class="form-control", rows="5", placeholder="Your Message") }}
+                    </div>
+                    <div class="text-center mt-5">
+                        <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100
+    });
+</script>
+{% endblock %}
