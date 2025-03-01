@@ -2,7 +2,7 @@
 
 This is a simple portfolio website built with Flask framework with administrator dashboard for content management.
 
-![Ss]()
+![Ss](6fb13f96de438b851a9fa85672808b2159e78ef5b6216855a4de2a51a3ee5b55.jpeg)
 
 ## Built With
 - **Backend**: Flask (Python web framework)
@@ -28,5 +28,48 @@ This is a simple portfolio website built with Flask framework with administrator
 ## Deployment
 The application is configured to run with Gunicorn for production deployment on Replit.
 
+
+# Environment Variables
+
+## Settings
+
+| Variable | Description | Default Value | Required |
+|----------|-------------|---------------|----------|
+| `SESSION_SECRET` | Secret key used for signing session cookies | `"dev-secret-key"` | No |
+| `DATABASE_URL` | Database connection string | `"sqlite:///portfolio.db"` | No |
+
+## Email Configuration
+
+Flask-Mail with Gmail SMTP for sending emails. The following variables are needed for proper email functionality:
+
+| Variable | Description | Default Value | Required |
+|----------|-------------|---------------|----------|
+| `MAIL_USERNAME` | Gmail account username | None | Yes (for email functionality) |
+| `MAIL_PASSWORD` | Gmail account password or app password | None | Yes (for email functionality) |
+| `ADMIN_EMAIL` | Email address to receive contact form submissions | None | Yes (for email functionality) |
+
+## Database Configuration
+
+The application automatically uses SQLite by default but can be configured to use other databases:
+
+```python
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL", "sqlite:///portfolio.db")
+```
+
+## Environment Variables Usage Example
+
+```python
+# Email sending example from the contact route
+msg = Message('New Contact Form Submission',
+             sender=app.config['MAIL_DEFAULT_SENDER'],  # Uses MAIL_USERNAME
+             recipients=[app.config['ADMIN_EMAIL']])    # Uses ADMIN_EMAIL
+```
+
+## Security Notes
+
+- Never commit sensitive environment variables to version control
+- For Gmail SMTP, use an app password instead of your primary account password
+- In production, use a strong, random `SESSION_SECRET`
+
 ## License
-This project is licensed under the MIT License.
+This project is licensed under the MIT [LICENSE](LICENSE).
